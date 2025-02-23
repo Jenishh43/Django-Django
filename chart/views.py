@@ -25,3 +25,17 @@ def chart_new(request):
     else:
         form = ChartForm()
     return render(request, 'chart/chart_edit.html', {'form': form})
+
+def chart_edit(request, pk):
+    chart = get_object_or_404(Chart, pk=pk)
+    if request.method == "POST":
+        form = ChartForm(instance=chart)
+        if form.is_valid():
+            chart = form.save(commit=False)
+            chart.author = request.user
+            chart.published_date = timezone.now()
+            chart.save()
+        return redirect('chart_detail', pk=chart.pk)
+    else:
+        form = ChartForm(instance=chart)
+    return render(request, 'chart/chart_edit.html', {'form': form})

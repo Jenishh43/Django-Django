@@ -1,13 +1,16 @@
-{% extends 'chart/chart.html' %}
-
-{% block content %}
-    <article class="chart">
-        {% if chart.published_date %}
-            <time class="date">
-                {{ chart.published_date }}
-            </time>
-        {% endif %}
-        <h2>{{ chart.title }}</h2>
-        <p>{{ chart.text|linebreaksbr }}</p>
-    </article>
+{% extends 'chart/chart.html' %} {% block content %}
+<article class="chart">
+    <aside class="actions">
+        {% if user.is_authenticated %}
+      <a class="btn btn-secondary" href="{% url 'chart_edit' pk=chart.pk %}">
+        {% include './icon/pencil-fill.svg' %}
+      </a>
+      {% endif %}
+    </aside>
+  {% if chart.published_date %}
+  <time class="date"> {{ chart.published_date }} </time>
+  {% endif %}
+  <h2>{{ chart.title }}</h2>
+  <p>{{ chart.text|linebreaksbr }}</p>
+</article>
 {% endblock %}

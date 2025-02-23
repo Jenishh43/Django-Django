@@ -6,7 +6,7 @@
             <time class="date"> 
                 {{ chart.published_date }}
             </time>
-            <h2><a href='{% url 'chart_details' pk=chart.pk %}'>{{ chart.title }}</a></h2>
+            <h2><a href='{% url 'chart_detail' pk=chart.pk %}'>{{ chart.title }}</a></h2>
             <p>{{ chart.text|linebreaksbr }}</p>
         </article>
     {% endfor %} 

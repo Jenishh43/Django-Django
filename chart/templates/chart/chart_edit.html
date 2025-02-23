@@ -1,7 +1,7 @@
 {% extends 'chart/chart.html' %}
 
 {% block content %}
-    <h2>New Chart</h2>
+    <h2>New chart</h2>
     <form method="POST" class="chart-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-secondary">Save</button>

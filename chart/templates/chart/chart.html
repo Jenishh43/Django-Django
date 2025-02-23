@@ -17,26 +17,17 @@
   </head>
   <body>
     <header class="page-header">
-      <div class="container">
-        {% comment %}
-        <a href="{% url 'chart_new' %}" class="top-menu">
-          {% include './icons/file-earmark-plus.svg' %}
-        </a>
-        {% endcomment %}
+      <div class="container" style="display: flex; justify-content: space-between;">
         <h1><a href="/">Django-Djanngo</a></h1>
+        {% if user.is_authenticated %}
+        <a href="{% url 'chart_new' %}" class="top-menu">{% include './icon/file-earmark-plus.svg' %}</a>
+        {% endif %}
       </div>
     </header>
 
-    <main class="container">
+    <main class="content container">
       <div class="row">
         <div class="col">
-          {% comment %} {% for chart in charts%}
-          <article class="chart">
-            <time class="date"> {{ chart.published_date }} </time>
-            <h2><a href="">{{ chart.title }}</a></h2>
-            <p>{{ chart.text|linerbreakersbr }}</p>
-          </article>
-          {% endfor %}   {% endcomment %}
           {% block content %}
           {% endblock %}
         </div>

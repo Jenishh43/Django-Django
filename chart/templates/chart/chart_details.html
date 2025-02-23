@@ -1,0 +1,13 @@
+{% extends 'chart/chart.html' %}
+
+{% block content %}
+    <article class="chart">
+        {% if chart.published_date %}
+            <time class="date">
+                {{ chart.published_date }}
+            </time>
+        {% endif %}
+        <h2>{{ chart.title }}</h2>
+        <p>{{ chart.text|linebreaksbr }}</p>
+    </article>
+{% endblock %}

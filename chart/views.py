@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Chart
+from django.utils import timezone
+from .forms import ChartForm
 
 # Create your views here.
 def chart_list(request):
@@ -8,5 +9,19 @@ def chart_list(request):
     return render(request, 'chart/chart_list.html',{'charts': charts})
 
 def chart_detail(request, pk):
+    # Chart.objects.get(pk=pk)
     chart = get_object_or_404(Chart, pk=pk)
-    return render(request, 'chart/chart_detail.html', {'chart': chart})
+    return render(request, 'chart/chart_details.html', {'chart': chart})
+
+def chart_new(request):
+    if request.method == "POST":
+        form = ChartForm(request.POST)
+        if form.is_valid():
+            chart = form.save(commit=False)
+            chart.author = request.user
+            chart.published_date = timezone.now()
+            chart.save()
+        return redirect('chart_detail', pk=chart.pk)
+    else:
+        form = ChartForm()
+    return render(request, 'chart/chart_edit.html', {'form': form})
